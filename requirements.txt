@@ -1,0 +1,6 @@
+-i https://pypi.tuna.tsinghua.edu.cn/simple/
+numpy==1.17.3
+python-speech-features==0.6
+SoundFile==0.10.2
+tensorboard==1.12.2
+tensorflow==1.12.0

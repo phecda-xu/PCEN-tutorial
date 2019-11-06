@@ -5,8 +5,8 @@
 
 ## About pcen
 
-    Per-channel energy normalization (PCEN), an acoustic frontend of AGC. Proposed in [Trainable Frontend For Robust and Far-Field Keyword Spotting](https://arxiv.org/pdf/1607.05666v1.pdf)
-    Learn from [Per-Channel Energy Normalization: Why and How]() for more information.
+Per-channel energy normalization (PCEN), an acoustic frontend of AGC. Proposed in [Trainable Frontend For Robust and Far-Field Keyword Spotting](https://arxiv.org/pdf/1607.05666v1.pdf)
+Learn from [Per-Channel Energy Normalization: Why and How]() for more information.
 
 ## Enviroment
 
