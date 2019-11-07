@@ -1,22 +1,14 @@
 import soundfile as sf
 import tensorflow as tf
 from NetWork import PCEN
-from Audio import AudioFront
+from python_speech_features import fbank
 
 
-def staticPcen(sig, sr):
-    af = AudioFront()
-    pcen_ = af.pcen(sig, sr)
-    print(pcen_)
-    return pcen_
-
-
-def trainablePcen(sig, sr):
-    af = AudioFront()
-    E = af.fbank(sig, sr)
+def main(sig, sr, trainable=True):
+    E, _ = fbank(sig, sr, winlen=0.02, winstep=0.01, nfilt=40)
     if len(E.shape) != 3:
         E = E.reshape((1, E.shape[0], E.shape[1]))
-    pcen = PCEN()
+    pcen = PCEN(trainable=trainable)
     input = tf.placeholder(shape=(1, 99, 40), name='input', dtype='float64')
     a = pcen.gen_pcen(input)
     b = pcen.s
@@ -36,5 +28,5 @@ def trainablePcen(sig, sr):
 if __name__ == "__main__":
     wavfile = 'wav/0a2b400e_nohash_1.wav'
     sig, sr = sf.read(wavfile)
-    static_pcen = staticPcen(sig, sr)
-    trainablePcen(sig, sr)
+    main(sig, sr, trainable=True)
+    main(sig, sr, trainable=False)

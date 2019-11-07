@@ -2,13 +2,21 @@ import tensorflow as tf
 
 
 class PCEN(object):
-    def __init__(self):
-        with tf.variable_scope('PCEN-layer'):
-            self.s = tf.get_variable('s', (1,), initializer=tf.constant_initializer(0.025), dtype='float64')
-            self.alpha = tf.get_variable('alpha', (1,), initializer=tf.constant_initializer(0.98), dtype='float64')
-            self.delta = tf.get_variable('delta', (1,), initializer=tf.constant_initializer(2), dtype='float64')
-            self.r = tf.get_variable('r', (1,), initializer=tf.constant_initializer(0.5), dtype='float64')
-            self.eps = tf.constant(1E-6, dtype='float64')
+    def __init__(self, trainable=True):
+        if trainable:
+            with tf.variable_scope('pcen/trainable'):
+                self.s = tf.get_variable('s', (1,), initializer=tf.constant_initializer(0.025), dtype='float64')
+                self.alpha = tf.get_variable('alpha', (1,), initializer=tf.constant_initializer(0.98), dtype='float64')
+                self.delta = tf.get_variable('delta', (1,), initializer=tf.constant_initializer(2.0), dtype='float64')
+                self.r = tf.get_variable('r', (1,), initializer=tf.constant_initializer(0.5), dtype='float64')
+        else:
+            with tf.variable_scope('pcen/static'):
+                self.s = tf.constant(0.025, dtype='float64', name='s')
+                self.alpha = tf.constant(0.98, dtype='float64', name='alpha')
+                self.delta = tf.constant(2.0, dtype='float64', name='delta')
+                self.r = tf.constant(0.5, dtype='float64', name='r')
+        with tf.variable_scope('pcen'):
+            self.eps = tf.constant(1E-6, dtype='float64', name='eps')
 
     def iir(self, E, empty=True, last_state=None):
         frames = tf.split(E, E.shape[1], axis=1)
