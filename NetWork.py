@@ -37,5 +37,5 @@ class PCEN(object):
     def gen_pcen(self, inputs):
         M = self.iir(inputs)
         smooth = (self.eps + M) ** (- self.alpha)
-        return (inputs * smooth + self.delta) ** self.r - self.delta ** self.r
+        return (inputs * smooth + tf.abs(self.delta)) ** self.r - tf.abs(self.delta) ** self.r
 
