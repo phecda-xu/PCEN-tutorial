@@ -16,13 +16,22 @@ python 3.5
 package version see in requirements.txt
 ```
 
-## use
+## usage
 
 ```
-pcen = PCEN(trainable=True)
+from NetWork import RPCEN
+pcen = RPCEN(trainable=True)
 out = pcen.gen_pcen(input)
 
-default param means getting the trainable layer.
+default trainable means getting the trainable layer.
+```
+
+```
+from NetWork import FPCEN
+pcen = FPCEN()
+out = pcen.gen_pcen(input)
+
+use two IIRs with s= 0.015 and s=0.08
 ```
 
 - Note:
